@@ -1,4 +1,3 @@
-console.log("welcome to the js file");
 var input = document.getElementById("inputText");
 let bool = false;
 
@@ -10,9 +9,16 @@ const keyboardHandler = (event) => {
 
   switch (targetValue) {
     case "Back":
-      array.splice(caretPositon - 1, 1);
-      a = array.join("");
-      input.value = a;
+      console.log(caretPositon);
+      if (caretPositon == 0) {
+        input.setSelectionRange(0, 0);
+      } else {
+        array.splice(caretPositon - 1, 1);
+        a = array.join("");
+        input.value = a;
+        input.setSelectionRange(caretPositon - 1, caretPositon - 1);
+      }
+
       break;
     case "CapsLock":
       toggleCaps();
@@ -24,11 +30,15 @@ const keyboardHandler = (event) => {
       array.splice(caretPositon, 0, " ");
       a = array.join("");
       input.value = a;
+      input.setSelectionRange(caretPositon + 1, caretPositon + 1);
+
       break;
     default:
       array.splice(caretPositon, 0, event.target.innerText);
       a = array.join("");
       input.value = a;
+      input.setSelectionRange(caretPositon + 1, caretPositon + 1);
+
       if (bool) {
         bool = false;
         toggleCaps();
